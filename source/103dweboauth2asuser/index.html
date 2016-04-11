@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet"
+     href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+    <style>td, th {
+      padding:6px;
+    }
+    </style>
+    <base target="_top">
+  </head>
+  <body>
+    <? var result = getData(); 
+       var data = result.data.responses[0].labelAnnotations;
+       var headings = Object.keys(data[0]);
+    ?>
+    <table>
+    <tr>
+      <? headings.forEach (function(h) {
+        ?><th><?=h?></th>
+      <? }); ?> <th>image</th> 
+    </tr>
+    <? data.forEach(function(d,i,a) { ?><tr><?
+       headings.forEach (function(h) {
+        ?><td><?=d[h]?></td>
+        <?});?>
+        <?if(!i) { ?>
+          <td rowspan="<?=a.length?>">
+          <img style="height:auto;width:160px;" 
+          src="data:<?=result.file.type?>;base64,<?=result.file.b64?>">
+          </td>
+        <?}?>
+       </tr> <?
+       });
+     ?>
+    </table>
+  </body>
+</html>
+
+
+
+
